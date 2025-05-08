@@ -13,7 +13,9 @@ ENV DEBIAN_FRONTEND=noninteractive \
 FROM base AS build
 
 # Update the package list and install necessary packages
-RUN apt-get update && \
+RUN sed -i 's/deb.debian.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apt/sources.list && \
+    sed -i 's/security.debian.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apt/sources.list && \
+    apt-get update && \
     apt-get install -y --no-install-recommends \
         build-essential && \
     apt-get clean && \
@@ -23,7 +25,7 @@ RUN apt-get update && \
 COPY requirements.txt .
 RUN python -m venv /app/venv && \
     . /app/venv/bin/activate && \
-    pip install -r requirements.txt
+    pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
 #     pip uninstall -y paddlepaddle && \
 #     pip install -i https://www.paddlepaddle.org.cn/packages/stable/cu118/ \
 #         paddlepaddle-gpu==3.0.0rc1
@@ -42,7 +44,9 @@ COPY --from=build /opt/models /opt/models
 COPY --from=build /opt/layoutreader /opt/layoutreader
 
 # Update the package list and install necessary packages
-RUN apt-get update && \
+RUN sed -i 's/deb.debian.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apt/sources.list && \
+    sed -i 's/security.debian.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apt/sources.list && \
+    apt-get update && \
     apt-get install -y --no-install-recommends \
         libgl1 \
         libglib2.0-0 \
@@ -60,8 +64,8 @@ COPY magic-pdf.json /root/magic-pdf.json
 COPY app.py /app/app.py
 
 # Expose the port that FastAPI will run on
-EXPOSE 8000
+EXPOSE 9204
 
-# Command to run FastAPI using Uvicorn, pointing to app.py and binding to 0.0.0.0:8000
+# Command to run FastAPI using Uvicorn, pointing to app.py and binding to 0.0.0.0:9204
 ENTRYPOINT [ "/app/entrypoint.sh" ]
-CMD ["--host", "0.0.0.0", "--port", "8000"]
+CMD ["--host", "0.0.0.0", "--port", "9204"]
