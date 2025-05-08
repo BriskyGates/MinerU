@@ -1,2 +1,2 @@
 git pull
-docker build -t web_api .
+docker build -t mineru-api .
