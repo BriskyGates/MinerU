@@ -29,7 +29,7 @@ RUN rm -rf /etc/apt/sources.list.d/* && \
 COPY requirements.txt .
 RUN python -m venv /app/venv && \
     . /app/venv/bin/activate && \
-    pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
+    pip install -r requirements.txt -i https://mirrors.aliyun.com/pypi/simple/
 #     pip uninstall -y paddlepaddle && \
 #     pip install -i https://www.paddlepaddle.org.cn/packages/stable/cu118/ \
 #         paddlepaddle-gpu==3.0.0rc1
