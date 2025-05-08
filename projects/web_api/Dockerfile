@@ -37,7 +37,7 @@ RUN python -m venv /app/venv && \
 # Download models
 COPY download_models.py .
 RUN . /app/venv/bin/activate && \
-    ./download_models.py
+    python3 download_models.py
 
 
 FROM base AS prod
@@ -69,6 +69,8 @@ RUN rm -rf /etc/apt/sources.list.d/* && \
 # Copy the app and its configuration file
 COPY entrypoint.sh /app/entrypoint.sh
 COPY magic-pdf.json /root/magic-pdf.json
+# 把其他cpu的替换成cuda 
+RUN sed -i 's/cpu/cuda/g' /root/magic-pdf.json
 COPY app.py /app/app.py
 
 # Expose the port that FastAPI will run on
