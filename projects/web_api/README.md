@@ -18,7 +18,7 @@ docker build --build-arg http_proxy=http://127.0.0.1:7890 --build-arg https_prox
 ## 启动命令
 
 ```
-docker run --rm -it --gpus=all -p 8000:8000 mineru-api
+docker run --rm -it --gpus=all -p 9204:9204 mineru-api
 ```
 
 ## 测试参数
