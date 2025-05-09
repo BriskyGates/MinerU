@@ -33,13 +33,13 @@ def download_and_modify_json(url, local_filename, modifications):
 
 if __name__ == '__main__':
     mineru_patterns = [
-        # "models/Layout/LayoutLMv3/*",
+        "models/Layout/LayoutLMv3/*",
         "models/Layout/YOLO/*",
         "models/MFD/YOLO/*",
         "models/MFR/unimernet_hf_small_2503/*",
         "models/OCR/paddleocr_torch/*",
-        "models/TabRec/TableMaster/*",
-        "models/TabRec/StructEqTable/*",
+        # "models/TabRec/TableMaster/*",
+        # "models/TabRec/StructEqTable/*",
     ]
     model_dir = snapshot_download('opendatalab/PDF-Extract-Kit-1.0', allow_patterns=mineru_patterns,
                                   local_dir='/opt')
