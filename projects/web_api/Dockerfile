@@ -75,6 +75,7 @@ COPY app.py /app/app.py
 
 # Expose the port that FastAPI will run on
 EXPOSE 9204
+RUN apt update &&  apt-get install -y vim &&  apt install -y libgl1-mesa-glx
 
 # Command to run FastAPI using Uvicorn, pointing to app.py and binding to 0.0.0.0:9204
 ENTRYPOINT [ "/app/entrypoint.sh" ]
